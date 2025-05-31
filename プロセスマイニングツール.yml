@@ -1,0 +1,427 @@
+app:
+  description: 業務改善を提案するツール
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: プロセスマイニング2
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.0.4@ded299f05e33eaf587fdc8a42c85a03459dc161603bf16926f52467b2ef27906
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: document-extractor
+      id: 1723276212930-source-1735955638944-target
+      selected: false
+      source: '1723276212930'
+      sourceHandle: source
+      target: '1735955638944'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 17359579707050-source-1735957586676-target
+      selected: false
+      source: '17359579707050'
+      sourceHandle: source
+      target: '1735957586676'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: document-extractor
+        targetType: llm
+      id: 1735955638944-source-1740314424134-target
+      selected: false
+      source: '1735955638944'
+      sourceHandle: source
+      target: '1740314424134'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: end
+      id: 1740314424134-source-1735955344407-target
+      source: '1740314424134'
+      sourceHandle: source
+      target: '1735955344407'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: files
+          max_length: 48
+          options: []
+          required: true
+          type: file
+          variable: files
+      height: 88
+      id: '1723276212930'
+      position:
+        x: 86.60432801342375
+        y: 280
+      positionAbsolute:
+        x: 86.60432801342375
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.0-flash-exp
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: e5e25fa9-22ec-4e9e-80e7-c788a60baa28
+          role: system
+          text: あなたは業務プロセス改善のコンサルタントでプロセスマイニングの専門家です。
+        - id: 73ec2cce-4cb6-4c48-886b-e4073cb1468a
+          role: user
+          text: '{{#1735955638944.text#}}csvファイルから、頻度の多い順に、業務を表形式でまとめて、バリアント分析（頻度分析を行ってください。
+
+            ※1 バリアント分析とは、発生する業務( の回数が多いものに着目し、ボトルネックを見出す方法です。
+
+            例えば、データ抽出依頼のメールを2回に分けているとすると、２～3 日後に1 回でまとめるなどが読み取れます。イメージは、発生頻度第1 位のプロセス、発生頻度第2位のプロセスのように見てゆき、ボトルネックを見出します。'
+        selected: false
+        title: 'LLM1: 業務プロセス改善のコンサルタントでバリアント分析（頻度分析）の担当'
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1735955335489'
+      position:
+        x: 685.3987917786955
+        y: 268.78933761073256
+      positionAbsolute:
+        x: 685.3987917786955
+        y: 268.78933761073256
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1740314424134'
+          - text
+          variable: test
+        selected: false
+        title: 終了
+        type: end
+      height: 88
+      id: '1735955344407'
+      position:
+        x: 1367.8433309255156
+        y: 280
+      positionAbsolute:
+        x: 1367.8433309255156
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        is_array_file: false
+        selected: false
+        title: テキスト抽出ツール
+        type: document-extractor
+        variable_selector:
+        - '1723276212930'
+        - files
+      height: 90
+      id: '1735955638944'
+      position:
+        x: 360.656289858945
+        y: 280
+      positionAbsolute:
+        x: 360.656289858945
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.0-flash-exp
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 1b9ad909-6bf2-455f-ba6a-c5b16275fe5a
+          role: system
+          text: あなたは有能な業務プロセス改善のコンサルタントのお客様へ提案するマネージャーです。
+        - id: fef73591-9dc3-4205-9094-ab41f48212bc
+          role: user
+          text: 'LLM1: 業務プロセス改善のコンサルタントでバリアント分析（頻度分析）の担当とLLM2: 業務プロセス改善のコンサルタントでパフォーマンス分析（時間軸分析）の担当とLLM3:業務プロセス改善のコンサルタントでリワーク分析（出戻りやり直しの分析）の担当とを、表形式でまとめたものをレポートに入れて、3者の表と分析結果を取りまとめて、最高の改善報告書を作成してください。
+
+
+            具体的に、下記の4項目は必ず取り入れてください。
+
+            1.頻度の多い業務のまとめ
+
+            2.所要時間の多いプロセスのまとめ
+
+            3.工数削減や費用削減に繋がる業務プロセスの発見
+
+            4.1.から3.で共通するボトルネックを取りまとめて、改善案を文章にして作成してください。必ず、ボトルネックは誰々のどの工程である。このように改善すればよいと簡素な文にまとめてください。
+
+
+            ---
+
+            これはバリアント分析（頻度分析）の担当の分析内容
+
+            {{#1735955335489.text#}}
+
+            ---
+
+            これはパフォーマンス分析（時間軸分析）の担当の分析内容
+
+            {{#17359579629480.text#}}
+
+            ---
+
+            これはリワーク分析（出戻りややり直しの分析）の担当の分析内容
+
+            {{#17359579707050.text#}}
+
+            ---'
+        selected: false
+        title: 'LLM4: 業務プロセス改善のコンサルタントのマネージャー'
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1735957586676'
+      position:
+        x: 1039.7577840663298
+        y: 280
+      positionAbsolute:
+        x: 1039.7577840663298
+        y: 280
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.0-flash-exp
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: e5e25fa9-22ec-4e9e-80e7-c788a60baa28
+          role: system
+          text: あなたは業務プロセス改善のコンサルタントでパフォーマンス分析（時間軸分析）の担当者です。
+        - id: 73ec2cce-4cb6-4c48-886b-e4073cb1468a
+          role: user
+          text: "{{#1735955638944.text#}}csvファイルから、所要時間の多いプロセスを抜き出して、パフォーマンス分析（時間軸分析）を行い、表形式でまとめてください。\
+            \ \n※2 パフォーマンス分析とは、所要時間に着目した分析で、業務プロセス間の所要時間から業務改善の道筋を探る手法です。\n目的は以下の3\
+            \ つです。①ハッピーパスと比較し、所要時間が長いアクティビティを確認するため\n②工数 費用削減に繋がる業務を発見するため\n③手戻りが発生している業務と関連づけて、ボトルネックを特定するため。"
+        selected: false
+        title: 'LLM2: 業務プロセス改善のコンサルタントでパフォーマンス分析（時間軸分析）の担当'
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '17359579629480'
+      position:
+        x: 685.3987917786955
+        y: 407.98808228408626
+      positionAbsolute:
+        x: 685.3987917786955
+        y: 407.98808228408626
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.0-flash-exp
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: e5e25fa9-22ec-4e9e-80e7-c788a60baa28
+          role: system
+          text: あなたは業務プロセス改善のコンサルタントでリワーク分析（出戻りやり直しの分析）のエキスパートです。
+        - id: 73ec2cce-4cb6-4c48-886b-e4073cb1468a
+          role: user
+          text: '{{#1735955638944.text#}}csvファイルから、何回も繰り返したり、やり直している業務を見出して、工数削減や費用削減に繋がる業務プロセスを発見する。リワーク分析を行ってください。※3
+            リワーク分析とは、何回も繰り返しあやり直しが発生している業務から、工数 費用削減に繋がる業務を発見する手法です。
+
+            目的は以下の３つです。
+
+            ①想定よりもスループットタイムが長い時、原因となる業務を分析します。
+
+            ②（パフォーマンス分析と同様に）工数 費用削減可能な業務の発見
+
+            ③リワークが必要不可欠な業務の発見（再度確認作業が必要な業務など、リワークが必然的に発生することも考えられるため）'
+        selected: false
+        title: 'LLM3: 業務プロセス改善のコンサルタントでリワーク分析（出戻りやり直しの分析）の担当'
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '17359579707050'
+      position:
+        x: 685.3987917786955
+        y: 556.1480484365966
+      positionAbsolute:
+        x: 685.3987917786955
+        y: 556.1480484365966
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.0-flash-exp
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 2d5f32c7-b2db-4653-b877-56127f2c56a0
+          role: system
+          text: あなたは業務プロセス改善のコンサルタントでプロセスマイニングの専門家です。
+        - id: 2a7db329-17c9-4441-9c6f-0bfaa8285491
+          role: user
+          text: "{{#1735955638944.text#}}まず、csvファイルから、頻度の多い順に、業務を表形式でまとめて、バリアント分析（頻度分析を行ってください。\n\
+            ※1 バリアント分析とは、発生する業務( の回数が多いものに着目し、ボトルネックを見出す方法です。\n次に、csvファイルから、所要時間の多いプロセスを抜き出して、パフォーマンス分析（時間軸分析）を行い、表形式でまとめてください。\
+            \ \n※2 パフォーマンス分析とは、所要時間に着目した分析で、業務プロセス間の所要時間から業務改善の道筋を探る手法です。\nそして、csvファイルから、何回も繰り返したり、やり直している業務を見出して、工数削減や費用削減に繋がる業務プロセスを発見する。リワーク分析を行ってください。※3\
+            \ リワーク分析とは、何回も繰り返しあやり直しが発生している業務から、工数 費用削減に繋がる業務を発見する手法です。\n\n最後に、上記の3つの分析結果を表形式でまとめて、最高の改善報告書を作成してください。\n\
+            \n※下記の4項目は必ず取り入れてください。\n1.頻度の多い業務のまとめ\n2.所要時間の多いプロセスのまとめ\n3.工数削減や費用削減に繋がる業務プロセスの発見\n\
+            4.1.から3.で共通するボトルネックを取りまとめて、改善案を文章にして作成してください。必ず、ボトルネックは誰々のどの工程である。このように改善すればよいと簡素な文にまとめてください。\n"
+        selected: false
+        title: LLM 5
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1740314424134'
+      position:
+        x: 685.3987917786955
+        y: 730.98970789426
+      positionAbsolute:
+        x: 685.3987917786955
+        y: 730.98970789426
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    viewport:
+      x: -482.259842281754
+      y: 87.36140245758932
+      zoom: 0.5467240664889219
